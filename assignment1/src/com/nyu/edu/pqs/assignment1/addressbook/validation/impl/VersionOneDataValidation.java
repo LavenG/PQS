@@ -40,7 +40,9 @@ public class VersionOneDataValidation implements ContactValidator {
         return isInteger(phoneNumberFormatPojo.getCountryCode())
                 && isInteger(phoneNumberFormatPojo.getAreaCode())
                 && isInteger(phoneNumberFormatPojo.getFirstThreeDigit())
-                && isInteger(phoneNumberFormatPojo.getLastFourDigit());
+                && phoneNumberFormatPojo.getFirstThreeDigit().length() == 3
+                && isInteger(phoneNumberFormatPojo.getLastFourDigit())
+                && phoneNumberFormatPojo.getLastFourDigit().length() == 4;
     }
 
     private boolean isInteger(final String number) {
