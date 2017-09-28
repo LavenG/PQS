@@ -10,7 +10,8 @@ public class PhoneNumberFormat {
     private final String firstThreeDigit;
     private final String lastFourDigit;
 
-    private PhoneNumberFormat(String countryCode, String areaCode, String firstThreeDigit, String lastFourDigit) {
+    private PhoneNumberFormat(final String countryCode, final String areaCode,
+                              final String firstThreeDigit, final String lastFourDigit) {
         this.countryCode = countryCode;
         this.areaCode = areaCode;
         this.firstThreeDigit = firstThreeDigit;
@@ -47,7 +48,7 @@ public class PhoneNumberFormat {
      * @param searchTerm the string which has to be verified against.
      * @return true if object starts with the provided text, false otherwise.
      */
-    public boolean startsWith(String searchTerm) {
+    public boolean startsWith(final String searchTerm) {
         if (countryCode.startsWith(searchTerm)) {
             return true;
         } else if (areaCode.startsWith(searchTerm)) {
@@ -87,7 +88,7 @@ public class PhoneNumberFormat {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -121,22 +122,22 @@ public class PhoneNumberFormat {
         private String firstThreeDigit;
         private String lastFourDigit;
 
-        public PhoneNumberFormatBuilder setCountryCode(String countryCode) {
+        public PhoneNumberFormatBuilder setCountryCode(final String countryCode) {
             this.countryCode = countryCode;
             return this;
         }
 
-        public PhoneNumberFormatBuilder setAreaCode(String areaCode) {
+        public PhoneNumberFormatBuilder setAreaCode(final String areaCode) {
             this.areaCode = areaCode;
             return this;
         }
 
-        public PhoneNumberFormatBuilder setFirstThreeDigit(String firstThreeDigit) {
+        public PhoneNumberFormatBuilder setFirstThreeDigit(final String firstThreeDigit) {
             this.firstThreeDigit = firstThreeDigit;
             return this;
         }
 
-        public PhoneNumberFormatBuilder setLastFourDigit(String lastFourDigit) {
+        public PhoneNumberFormatBuilder setLastFourDigit(final String lastFourDigit) {
             this.lastFourDigit = lastFourDigit;
             return this;
         }

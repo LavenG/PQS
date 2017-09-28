@@ -11,20 +11,33 @@ public class PhoneNumberPojo {
     private final PhoneNumberFormatPojo workNumber;
     private final PhoneNumberFormatPojo homeNumber;
 
-    private PhoneNumberPojo(PhoneNumberFormatPojo mobileNumber, PhoneNumberFormatPojo workNumber, PhoneNumberFormatPojo homeNumber) {
+    private PhoneNumberPojo(final PhoneNumberFormatPojo mobileNumber, final PhoneNumberFormatPojo workNumber,
+                            final PhoneNumberFormatPojo homeNumber) {
         this.mobileNumber = mobileNumber;
         this.workNumber = workNumber;
         this.homeNumber = homeNumber;
     }
 
+    /**
+     *
+     * @return All numerical mobile number. It could also be null.
+     */
     public PhoneNumberFormatPojo getMobileNumber() {
         return mobileNumber;
     }
 
+    /**
+     *
+     * @return All numerical home number. It could also be null.
+     */
     public PhoneNumberFormatPojo getHomeNumber() {
         return homeNumber;
     }
 
+    /**
+     *
+     * @return All numerical mobile number. It could also be null.
+     */
     public PhoneNumberFormatPojo getWorkNumber() {
         return workNumber;
     }
@@ -45,17 +58,35 @@ public class PhoneNumberPojo {
         private PhoneNumberFormatPojo workNumber;
         private PhoneNumberFormatPojo homeNumber;
 
-        public PhoneNumberPojoBuilder setMobileNumber(PhoneNumberFormatPojo mobileNumber) {
+        /**
+         * To set a mobile number which can only be a string og numbers or null.
+         *
+         * @param mobileNumber The mobile number entered by the user.
+         * @return current instance of {@link PhoneNumberPojoBuilder}
+         */
+        public PhoneNumberPojoBuilder setMobileNumber(final PhoneNumberFormatPojo mobileNumber) {
             this.mobileNumber = mobileNumber;
             return this;
         }
 
-        public PhoneNumberPojoBuilder setWorkNumber(PhoneNumberFormatPojo workNumber) {
+        /**
+         * To set a work number which can only be a string og numbers or null.
+         *
+         * @param workNumber The work number entered by the user.
+         * @return current instance of {@link PhoneNumberPojoBuilder}
+         */
+        public PhoneNumberPojoBuilder setWorkNumber(final PhoneNumberFormatPojo workNumber) {
             this.workNumber = workNumber;
             return this;
         }
 
-        public PhoneNumberPojoBuilder setHomeNumber(PhoneNumberFormatPojo homeNumber) {
+        /**
+         * To set a home number which can only be a string og numbers or null.
+         *
+         * @param homeNumber The home number entered by the user.
+         * @return current instance of {@link PhoneNumberPojoBuilder}
+         */
+        public PhoneNumberPojoBuilder setHomeNumber(final PhoneNumberFormatPojo homeNumber) {
             this.homeNumber = homeNumber;
             return this;
         }

@@ -14,7 +14,8 @@ public class PostalAddress {
     private final String country;
     private final String zipCode;
 
-    private PostalAddress(String addressLine1, String addressLine2, String city, String state, String country, String zipCode) {
+    private PostalAddress(final String addressLine1, final String addressLine2, final String city,
+                          final String state, final String country, final String zipCode) {
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.city = city;
@@ -59,7 +60,7 @@ public class PostalAddress {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -98,32 +99,32 @@ public class PostalAddress {
         private String country;
         private String zipCode;
 
-        public PostalAddressBuilder setAddressLine1(String addressLine1) {
+        public PostalAddressBuilder setAddressLine1(final String addressLine1) {
             this.addressLine1 = addressLine1;
             return this;
         }
 
-        public PostalAddressBuilder setAddressLine2(String addressLine2) {
+        public PostalAddressBuilder setAddressLine2(final String addressLine2) {
             this.addressLine2 = addressLine2;
             return this;
         }
 
-        public PostalAddressBuilder setCity(String city) {
+        public PostalAddressBuilder setCity(final String city) {
             this.city = city;
             return this;
         }
 
-        public PostalAddressBuilder setState(String state) {
+        public PostalAddressBuilder setState(final String state) {
             this.state = state;
             return this;
         }
 
-        public PostalAddressBuilder setCountry(String country) {
+        public PostalAddressBuilder setCountry(final String country) {
             this.country = country;
             return this;
         }
 
-        public PostalAddressBuilder setZipCode(String zipCode) {
+        public PostalAddressBuilder setZipCode(final String zipCode) {
             this.zipCode = zipCode;
             return this;
         }

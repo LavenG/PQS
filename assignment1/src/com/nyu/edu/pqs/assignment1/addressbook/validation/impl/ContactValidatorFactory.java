@@ -1,6 +1,6 @@
 package com.nyu.edu.pqs.assignment1.addressbook.validation.impl;
 
-import com.nyu.edu.pqs.assignment1.addressbook.api.Version;
+import com.nyu.edu.pqs.assignment1.addressbook.version.Version;
 import com.nyu.edu.pqs.assignment1.addressbook.validation.ContactValidator;
 
 /**
@@ -9,7 +9,12 @@ import com.nyu.edu.pqs.assignment1.addressbook.validation.ContactValidator;
  * As more versions of the address book library are released one can change the code here to determine the
  * correct validation implementation to use without changing the initialization in all classes.
  */
-public class ContactValidatorFactory {
+public final class ContactValidatorFactory {
+
+    /**
+     * This constructor prevents the default parameter-less constructor from being used elsewhere.
+     */
+    private ContactValidatorFactory() {}
 
     /**
      * This methods returns an instance of Contact Validator depending on the version provided by user.
@@ -19,8 +24,8 @@ public class ContactValidatorFactory {
      * @param version The version information provided by user.
      * @return An instance of implementation of COntact Validator interface.
      */
-    public static ContactValidator getConatctValidator(Version version) {
-        if(version == Version.Version1) {
+    public static ContactValidator getConatctValidator(final Version version) {
+        if (version == Version.Version1) {
             return new VersionOneDataValidation();
         }
         return null;

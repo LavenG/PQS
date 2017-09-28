@@ -8,7 +8,7 @@ public class EmailFormat {
     private final String userName;
     private final String domain;
 
-    private EmailFormat(String userName, String domain) {
+    private EmailFormat(final String userName, final String domain) {
         this.userName = userName;
         this.domain = domain;
     }
@@ -75,12 +75,12 @@ public class EmailFormat {
         private String userName;
         private String domain;
 
-        public EmailFormatBuilder setUserName(String userName) {
+        public EmailFormatBuilder setUserName(final String userName) {
             this.userName = userName;
             return this;
         }
 
-        public EmailFormatBuilder setDomain(String domain) {
+        public EmailFormatBuilder setDomain(final String domain) {
             this.domain = domain;
             return this;
         }

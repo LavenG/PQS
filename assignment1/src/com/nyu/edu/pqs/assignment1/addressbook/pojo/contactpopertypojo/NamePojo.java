@@ -11,20 +11,35 @@ public class NamePojo {
     private final String middleName;
     private final String lastName;
 
-    private NamePojo(String firstName, String middleName, String lastName) {
+    private NamePojo(final String firstName, final String middleName, final String lastName) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
     }
 
+    /**
+     * Return the first name which could be null or a string of length less than 60.
+     *
+     * @return the first name of the user.
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Return the middle name which could be null or a string of length less than 60.
+     *
+     * @return the middle name of the user.
+     */
     public String getMiddleName() {
         return middleName;
     }
 
+    /**
+     * Return the last name which could be null or a string of length less than 60.
+     *
+     * @return the last name of the user.
+     */
     public String getLastName() {
         return lastName;
     }
@@ -45,17 +60,35 @@ public class NamePojo {
         private String middleName;
         private String lastName;
 
-        public NamePojoBuilder setFirstName(String firstName) {
+        /**
+         * Used to set a first name which is either 60 or leass character long or null.
+         *
+         * @param firstName the first name.
+         * @return an instance of {@link NamePojoBuilder} to build an object of type {@link NamePojo}
+         */
+        public NamePojoBuilder setFirstName(final String firstName) {
             this.firstName = firstName;
             return this;
         }
 
-        public NamePojoBuilder setMiddleName(String middleName) {
+        /**
+         * Used to set a middle name which is either 60 or leass character long or null.
+         *
+         * @param middleName the middle name.
+         * @return an instance of {@link NamePojoBuilder} to build an object of type {@link NamePojo}
+         */
+        public NamePojoBuilder setMiddleName(final String middleName) {
             this.middleName = middleName;
             return this;
         }
 
-        public NamePojoBuilder setLastName(String lastName) {
+        /**
+         * Used to set a last name which is either 60 or leass character long or null.
+         *
+         * @param lastName the last name.
+         * @return an instance of {@link NamePojoBuilder} to build an object of type {@link NamePojo}
+         */
+        public NamePojoBuilder setLastName(final String lastName) {
             this.lastName = lastName;
             return this;
         }

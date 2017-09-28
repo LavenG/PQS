@@ -24,22 +24,42 @@ public class ContactPojo {
         this.postalAddress = postalAddressPojo;
     }
 
+    /**
+     *
+     * @return An object of type {@link NamePojo} containing contacts name information.
+     */
     public NamePojo getName() {
         return name;
     }
 
+    /**
+     *
+     * @return An object of type {@link PhoneNumberPojo} containing contacts phone number information.
+     */
     public PhoneNumberPojo getPhoneNumber() {
         return phoneNumber;
     }
 
+    /**
+     *
+     * @return An object of type {@link EmailPojo} containing contacts email information.
+     */
     public EmailPojo getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @return An object of type {@link NotePojo} containing contacts note information.
+     */
     public NotePojo getNote() {
         return note;
     }
 
+    /**
+     *
+     * @return An object of type {@link PostalAddressPojo} containing contacts postal address information.
+     */
     public PostalAddressPojo getPostalAddress() {
         return postalAddress;
     }
@@ -63,31 +83,64 @@ public class ContactPojo {
         private NotePojo note;
         private PostalAddressPojo postalAddress;
 
-        public ContactPojoBuilder setName(NamePojo name) {
+        /**
+         * To set name object to contact builder.
+         *
+         * @param name An object of type {@link NamePojo} containing contacts name information.
+         * @return an instance of the builder.
+         */
+        public ContactPojoBuilder setName(final NamePojo name) {
             this.name = name;
             return this;
         }
 
-        public ContactPojoBuilder setPhoneNumber(PhoneNumberPojo phoneNumber) {
+        /**
+         * To set phoneNumber object to contact builder.
+         *
+         * @param phoneNumber An object of type {@link NamePojo} containing contacts name information.
+         * @return an instance of the builder.
+         */
+        public ContactPojoBuilder setPhoneNumber(final PhoneNumberPojo phoneNumber) {
             this.phoneNumber = phoneNumber;
             return this;
         }
 
-        public ContactPojoBuilder setEmail(EmailPojo email) {
+        /**
+         *
+         * @param email An object of type {@link NamePojo} containing contacts name information.
+         * @return an instance of the builder.
+         */
+        public ContactPojoBuilder setEmail(final EmailPojo email) {
             this.email = email;
             return this;
         }
 
-        public ContactPojoBuilder setNote(NotePojo note) {
+        /**
+         *
+         * @param note An object of type {@link NamePojo} containing contacts name information.
+         * @return an instance of the builder.
+         */
+        public ContactPojoBuilder setNote(final NotePojo note) {
             this.note = note;
             return this;
         }
 
-        public ContactPojoBuilder setPostalAddress(PostalAddressPojo postalAddress) {
+        /**
+         *
+         * @param postalAddress An object of type {@link NamePojo} containing contacts name information.
+         * @return an instance of the builder.
+         */
+        public ContactPojoBuilder setPostalAddress(final PostalAddressPojo postalAddress) {
             this.postalAddress = postalAddress;
             return this;
         }
 
+        /**
+         * Create an object instance of {@link ContactPojo} with desired information set using
+         * {@link ContactPojoBuilder} set methods.
+         *
+         * @return an instance of type {@link ContactPojo}.
+         */
         public ContactPojo build() {
             return new ContactPojo(name, phoneNumber, email, note, postalAddress);
         }

@@ -11,7 +11,7 @@ public class Name implements Comparable<Name> {
     private final String middleName;
     private final String lastName;
 
-    private Name(String firstName, String middleName, String lastName) {
+    private Name(final String firstName, final String middleName, final String lastName) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -33,7 +33,7 @@ public class Name implements Comparable<Name> {
      * {@inheritDoc}
      */
     @Override
-    public int compareTo(Name o) {
+    public int compareTo(final Name o) {
         if(!this.firstName.equals(o.firstName)) {
           return this.firstName.compareTo(o.firstName);
         }
@@ -52,7 +52,7 @@ public class Name implements Comparable<Name> {
      * @param nameText the string which has to be verified against
      * @return true if object starts with the provided text, false otherwise.
      */
-    public boolean startsWith(String nameText) {
+    public boolean startsWith(final String nameText) {
         String consolidatedName = firstName + ' ' + lastName + ' ' + middleName;
         if (firstName.startsWith(nameText)) {
             return true;
@@ -78,7 +78,7 @@ public class Name implements Comparable<Name> {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -108,17 +108,35 @@ public class Name implements Comparable<Name> {
         private String middleName;
         private String lastName;
 
-        public NameBuilder setFirstName(String firstName) {
+        /**
+         * Used to set a first name which is either 60 or leass character long or null.
+         *
+         * @param firstName the first name.
+         * @return an instance of {@link NameBuilder} to build an object of type {@link Name}
+         */
+        public NameBuilder setFirstName(final String firstName) {
             this.firstName = firstName;
             return this;
         }
 
-        public NameBuilder setMiddleName(String middleName) {
+        /**
+         * Used to set a middle name which is either 60 or leass character long or null.
+         *
+         * @param middleName the middle name.
+         * @return an instance of {@link NameBuilder} to build an object of type {@link Name}
+         */
+        public NameBuilder setMiddleName(final String middleName) {
             this.middleName = middleName;
             return this;
         }
 
-        public NameBuilder setLastName(String lastName) {
+        /**
+         * Used to set a last name which is either 60 or leass character long or null.
+         *
+         * @param lastName the last name.
+         * @return an instance of {@link NameBuilder} to build an object of type {@link Name}
+         */
+        public NameBuilder setLastName(final String lastName) {
             this.lastName = lastName;
             return this;
         }

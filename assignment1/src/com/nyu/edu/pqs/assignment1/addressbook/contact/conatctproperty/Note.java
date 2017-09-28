@@ -9,7 +9,7 @@ import com.nyu.edu.pqs.assignment1.addressbook.contact.Contact;
 public class Note {
     private final String note;
 
-    private Note(String note) {
+    private Note(final String note) {
         this.note = note;
     }
 
@@ -29,7 +29,7 @@ public class Note {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -52,7 +52,7 @@ public class Note {
     public static class NoteBuilder {
         private String note;
 
-        public NoteBuilder setNote(String note) {
+        public NoteBuilder setNote(final String note) {
             this.note = note;
             return this;
         }

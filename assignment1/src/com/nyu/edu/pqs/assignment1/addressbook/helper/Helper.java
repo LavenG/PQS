@@ -13,12 +13,17 @@ import com.nyu.edu.pqs.assignment1.addressbook.pojo.contactpopertypojo.*;
 public final class Helper {
 
     /**
+     * This constructor prevents the default parameter-less constructor from being used elsewhere.
+     */
+    private Helper() {}
+
+    /**
      * The function convers a pojo to a model object to use for our address book.
      *
      * @param contactPojo A contact object passed by user.
      * @return A contact object that can be used for model.
      */
-    public static Contact convertContactPojoToContact(ContactPojo contactPojo) {
+    public static Contact convertContactPojoToContact(final ContactPojo contactPojo) {
         EmailFormat workEmailFormat = convertEmailFormatPojoToEmailFormat(
                 contactPojo.getEmail().getWorkEmail());
         EmailFormat personalEmailFormat = convertEmailFormatPojoToEmailFormat(
@@ -68,7 +73,7 @@ public final class Helper {
      * @param contact A contact object used in the model.
      * @return A contact object familiar to user.
      */
-    public static ContactPojo convertContactToContactPojo(Contact contact) {
+    public static ContactPojo convertContactToContactPojo(final Contact contact) {
         EmailFormatPojo workEmailFormatPojo = convertEmailFormatToEmailFormatPojo(
                 contact.getEmail().getWorkEmail());
         EmailFormatPojo personalEmailFormatPojo = convertEmailFormatToEmailFormatPojo(
@@ -113,7 +118,7 @@ public final class Helper {
                 .build();
     }
 
-    private static PhoneNumberFormat convertPhoneNumberFormatPojoToPhoneNumberFormat(PhoneNumberFormatPojo phoneNumberFormatPojo) {
+    private static PhoneNumberFormat convertPhoneNumberFormatPojoToPhoneNumberFormat(final PhoneNumberFormatPojo phoneNumberFormatPojo) {
         return new PhoneNumberFormat.PhoneNumberFormatBuilder().setCountryCode(phoneNumberFormatPojo.getCountryCode())
                 .setAreaCode(phoneNumberFormatPojo.getAreaCode())
                 .setFirstThreeDigit(phoneNumberFormatPojo.getFirstThreeDigit())
@@ -121,7 +126,7 @@ public final class Helper {
                 .build();
     }
 
-    private static PhoneNumberFormatPojo convertPhoneNumberFormatToPhoneNumberFormatPojo(PhoneNumberFormat phoneNumberFormat) {
+    private static PhoneNumberFormatPojo convertPhoneNumberFormatToPhoneNumberFormatPojo(final PhoneNumberFormat phoneNumberFormat) {
         return new PhoneNumberFormatPojo.PhoneNumberEntryPojoBuilder().setCountryCode(phoneNumberFormat.getCountryCode())
                 .setAreaCode(phoneNumberFormat.getAreaCode())
                 .setFirstThreeDigit(phoneNumberFormat.getFirstThreeDigit())
@@ -129,11 +134,11 @@ public final class Helper {
                 .build();
     }
 
-    private static EmailFormatPojo convertEmailFormatToEmailFormatPojo(EmailFormat emailFormat) {
+    private static EmailFormatPojo convertEmailFormatToEmailFormatPojo(final EmailFormat emailFormat) {
         return new EmailFormatPojo.EmailFormatPojoBuilder().setUserName(emailFormat.getUserName()).setDomain(emailFormat.getDomain()).build();
     }
 
-    private static EmailFormat convertEmailFormatPojoToEmailFormat(EmailFormatPojo emailFormatPojo) {
+    private static EmailFormat convertEmailFormatPojoToEmailFormat(final EmailFormatPojo emailFormatPojo) {
         return new EmailFormat.EmailFormatBuilder().setUserName(emailFormatPojo.getUserName()).setDomain(emailFormatPojo.getDomain()).build();
     }
 }

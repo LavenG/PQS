@@ -1,7 +1,7 @@
 package com.nyu.edu.pqs.assignment1.addressbook.api.impl;
 
 import com.nyu.edu.pqs.assignment1.addressbook.api.AddressBook;
-import com.nyu.edu.pqs.assignment1.addressbook.api.Version;
+import com.nyu.edu.pqs.assignment1.addressbook.version.Version;
 
 /**
  * This is a factory class for {@link AddressBook} interface.
@@ -9,7 +9,12 @@ import com.nyu.edu.pqs.assignment1.addressbook.api.Version;
  * As more versions of the address book library are released one can change the code here to determine the
  * correct address book implementation to use without changing the initialization in all classes.
  */
-public class AddressBookFactory {
+public final class AddressBookFactory {
+
+    /**
+     * This constructor prevents the default parameter-less constructor from being used elsewhere.
+     */
+    private AddressBookFactory() {}
 
     /**
      * This methods returns an instance of AddressBook interface depending on the version provided by user.
@@ -19,8 +24,8 @@ public class AddressBookFactory {
      * @param version The version information provided by user.
      * @return An instance of implementation of Address Book interface.
      */
-    public static AddressBook getAddressBook(Version version) {
-        if(version == Version.Version1) {
+    public static AddressBook getAddressBook(final Version version) {
+        if (version == Version.Version1) {
             return new AddressBookImpl(version);
         }
         return null;

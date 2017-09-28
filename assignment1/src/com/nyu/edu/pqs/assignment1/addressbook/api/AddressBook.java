@@ -2,6 +2,7 @@ package com.nyu.edu.pqs.assignment1.addressbook.api;
 
 import com.nyu.edu.pqs.assignment1.addressbook.pojo.ContactPojo;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -13,7 +14,8 @@ import java.util.List;
  * @version 1.0
  * @since 09/19/2017
  */
-// Any future developer who wants to change the whole implementation can create a new implementation for the interface.
+// Any future developer who wants to change the whole implementation can
+// create a new implementation for the interface.
 public interface AddressBook {
     /**
      * This method is used to create a contact and add it to contact list.
@@ -45,10 +47,11 @@ public interface AddressBook {
      * This method is used to searlize and write the content of the address book to list.
      * This method helps with data persistence and creates back up for data.
      *
-     * @param rootDir the root directory where contacts need to be saved.
+     * @param filePath the root directory where contacts need to be saved.
      * @return true if the file was saved to passes directory, false otherwise.
+     * @throws  IOException If read from persisted file fails at the specified file path.
      */
-    boolean saveAddressBook(String rootDir);
+    void saveAddressBook(String filePath) throws IOException;
 
     /**
      * This method is used to read from a saved version of data.
@@ -56,7 +59,8 @@ public interface AddressBook {
      * Reads data from the back-up and over writes current data.
      *
      * @param filePath The file path of file where contacts are read from.
-     * @return the list was read and information was obtained.
+     * @return true if the data was read from file and set to contact list, false otherwise.
+     * @throws  IOException If the read from file object fails due to Input output error.
      */
-    boolean readAddressBook(String filePath);
+    boolean readAddressBook(String filePath) throws IOException;
 }

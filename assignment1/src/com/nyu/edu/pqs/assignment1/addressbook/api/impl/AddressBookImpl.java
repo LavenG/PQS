@@ -1,7 +1,7 @@
 package com.nyu.edu.pqs.assignment1.addressbook.api.impl;
 
 import com.nyu.edu.pqs.assignment1.addressbook.api.AddressBook;
-import com.nyu.edu.pqs.assignment1.addressbook.api.Version;
+import com.nyu.edu.pqs.assignment1.addressbook.version.Version;
 import com.nyu.edu.pqs.assignment1.addressbook.contact.Contact;
 import com.nyu.edu.pqs.assignment1.addressbook.contact.contactmanager.ContactManager;
 import com.nyu.edu.pqs.assignment1.addressbook.contact.contactmanager.impl.ContactManagerFactory;
@@ -9,6 +9,7 @@ import com.nyu.edu.pqs.assignment1.addressbook.iomanager.IOManager;
 import com.nyu.edu.pqs.assignment1.addressbook.iomanager.impl.IOManagerFactory;
 import com.nyu.edu.pqs.assignment1.addressbook.pojo.ContactPojo;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class AddressBookImpl implements AddressBook {
     /**
      * The default constructor which initates objects with desired values.
      */
-    AddressBookImpl(Version version) {
+    AddressBookImpl(final Version version) {
         this.version = version;
         contactList = new LinkedList<>();
         contactManager = ContactManagerFactory.getContactManager(this.version);
@@ -39,7 +40,7 @@ public class AddressBookImpl implements AddressBook {
      * {@inheritDoc}
      */
     @Override
-    public boolean createEntry(ContactPojo addressBookEntry) {
+    public boolean createEntry(final ContactPojo addressBookEntry) {
         return contactManager.createEntry(addressBookEntry, contactList);
     }
 
@@ -47,7 +48,7 @@ public class AddressBookImpl implements AddressBook {
      * {@inheritDoc}
      */
     @Override
-    public boolean removeEntry(ContactPojo addressBookEntry) {
+    public boolean removeEntry(final ContactPojo addressBookEntry) {
         return contactManager.removeEntry(addressBookEntry, contactList);
     }
 
@@ -55,7 +56,7 @@ public class AddressBookImpl implements AddressBook {
      * {@inheritDoc}
      */
     @Override
-    public List<ContactPojo> searchEntry(String searchTerm) {
+    public List<ContactPojo> searchEntry(final String searchTerm) {
         return contactManager.searchEntry(searchTerm, contactList);
     }
 
@@ -63,15 +64,15 @@ public class AddressBookImpl implements AddressBook {
      * {@inheritDoc}
      */
     @Override
-    public boolean saveAddressBook(String filePath) {
-        return ioManager.saveAddressBook(filePath, contactList);
+    public void saveAddressBook(final String filePath) throws IOException {
+        ioManager.saveAddressBook(filePath, contactList);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean readAddressBook(String filePath) {
+    public boolean readAddressBook(final String filePath) throws IOException {
             contactList = ioManager.readAddressBook(filePath);
             return contactList != null;
     }

@@ -10,15 +10,25 @@ public class Email {
     private final EmailFormat personalEmail;
     private final EmailFormat workEmail;
 
-    private Email(EmailFormat personalEmail, EmailFormat workEmail) {
+    private Email(final EmailFormat personalEmail, final EmailFormat workEmail) {
         this.personalEmail = personalEmail;
         this.workEmail = workEmail;
     }
 
+    /**
+     * Used to get the personal email address of a user
+     *
+     * @return The personal email which is an object of type {@link EmailFormat}
+     */
     public EmailFormat getPersonalEmail() {
         return personalEmail;
     }
 
+    /**
+     * Used to get the work email address of a user
+     *
+     * @return The work email which is an object of type {@link EmailFormat}
+     */
     public EmailFormat getWorkEmail() {
         return workEmail;
     }
@@ -37,7 +47,7 @@ public class Email {
      * @param searchTerm the string which has to be verified against.
      * @return true if object starts with the provided text, false otherwise.
      */
-    public boolean startsWith(String searchTerm) {
+    public boolean startsWith(final String searchTerm) {
         return personalEmail.startsWith(searchTerm) || workEmail.startsWith(searchTerm);
     }
 
@@ -45,7 +55,7 @@ public class Email {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -73,16 +83,35 @@ public class Email {
         private EmailFormat personalEmail;
         private EmailFormat workEmail;
 
-        public EmailBuilder setPersonalEmail(EmailFormat personalEmail) {
+        /**
+         * To initialize value for personal email for an email pojo object.
+         *
+         * @param personalEmail An object of type {@link EmailFormat} for personal email
+         *                      which contains username and domain.
+         * @return the current instance of the builder.
+         */
+        public EmailBuilder setPersonalEmail(final EmailFormat personalEmail) {
             this.personalEmail = personalEmail;
             return this;
         }
 
-        public EmailBuilder setWorkEmail(EmailFormat workEmail) {
+        /**
+         * To initialize value for work email for an email pojo object.
+         *
+         * @param workEmail An object of type {@link EmailFormat} for work email
+         *                  which contains username and domain.
+         * @return the current instance of the builder.
+         */
+        public EmailBuilder setWorkEmail(final EmailFormat workEmail) {
             this.workEmail = workEmail;
             return this;
         }
 
+        /**
+         * To build a EmailPojo object.
+         *
+         * @return An object of type {@link Email}
+         */
         public Email build() {
             return new Email(personalEmail, workEmail);
         }

@@ -8,7 +8,7 @@ public class EmailFormatPojo {
     private final String userName;
     private final String domain;
 
-    private EmailFormatPojo(String userName, String domain) {
+    private EmailFormatPojo(final String userName, final String domain) {
         this.userName = userName;
         this.domain = domain;
     }
@@ -28,12 +28,12 @@ public class EmailFormatPojo {
         private String userName;
         private String domain;
 
-        public EmailFormatPojoBuilder setUserName(String userName) {
+        public EmailFormatPojoBuilder setUserName(final String userName) {
             this.userName = userName;
             return this;
         }
 
-        public EmailFormatPojoBuilder setDomain(String domain) {
+        public EmailFormatPojoBuilder setDomain(final String domain) {
             this.domain = domain;
             return this;
         }

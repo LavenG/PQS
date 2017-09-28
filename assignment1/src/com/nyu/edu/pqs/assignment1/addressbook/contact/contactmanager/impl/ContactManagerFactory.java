@@ -1,6 +1,6 @@
 package com.nyu.edu.pqs.assignment1.addressbook.contact.contactmanager.impl;
 
-import com.nyu.edu.pqs.assignment1.addressbook.api.Version;
+import com.nyu.edu.pqs.assignment1.addressbook.version.Version;
 import com.nyu.edu.pqs.assignment1.addressbook.contact.contactmanager.ContactManager;
 
 /**

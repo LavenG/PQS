@@ -11,7 +11,8 @@ public class PhoneNumber {
     private final PhoneNumberFormat workNumber;
     private final PhoneNumberFormat homeNumber;
 
-    private PhoneNumber(PhoneNumberFormat mobileNumber, PhoneNumberFormat workNumber, PhoneNumberFormat homeNumber) {
+    private PhoneNumber(final PhoneNumberFormat mobileNumber, final PhoneNumberFormat workNumber,
+                        final PhoneNumberFormat homeNumber) {
         this.mobileNumber = mobileNumber;
         this.workNumber = workNumber;
         this.homeNumber = homeNumber;
@@ -35,7 +36,7 @@ public class PhoneNumber {
      * @param searchTerm the string which has to be verified against.
      * @return true if object starts with the provided text, false otherwise.
      */
-    public boolean startsWith(String searchTerm) {
+    public boolean startsWith(final String searchTerm) {
         if (mobileNumber.startsWith(searchTerm)) {
             return true;
         } else if (homeNumber.startsWith(searchTerm)) {
@@ -58,7 +59,7 @@ public class PhoneNumber {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -88,17 +89,17 @@ public class PhoneNumber {
         private PhoneNumberFormat workNumber;
         private PhoneNumberFormat homeNumber;
 
-        public PhoneNumberBuilder setMobileNumber(PhoneNumberFormat mobileNumber) {
+        public PhoneNumberBuilder setMobileNumber(final PhoneNumberFormat mobileNumber) {
             this.mobileNumber = mobileNumber;
             return this;
         }
 
-        public PhoneNumberBuilder setWorkNumber(PhoneNumberFormat workNumber) {
+        public PhoneNumberBuilder setWorkNumber(final PhoneNumberFormat workNumber) {
             this.workNumber = workNumber;
             return this;
         }
 
-        public PhoneNumberBuilder setHomeNumber(PhoneNumberFormat homeNumber) {
+        public PhoneNumberBuilder setHomeNumber(final PhoneNumberFormat homeNumber) {
             this.homeNumber = homeNumber;
             return this;
         }

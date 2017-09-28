@@ -14,7 +14,8 @@ public class PostalAddressPojo {
     private final String country;
     private final String  zipCode;
 
-    private PostalAddressPojo(String addressLine1, String addressLine2, String city, String state, String country, String zipCode) {
+    private PostalAddressPojo(final String addressLine1, final String addressLine2, final String city,
+                              final String state, final String country, final String zipCode) {
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.city = city;

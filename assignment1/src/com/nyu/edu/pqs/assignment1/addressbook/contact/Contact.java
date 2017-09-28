@@ -14,7 +14,8 @@ public class Contact implements Comparable<Contact> {
     private final Note note;
     private final PostalAddress postalAddress;
 
-    private Contact(Name name, PhoneNumber phoneNumber, Email email, Note note, PostalAddress postalAddress) {
+    private Contact(final Name name, final PhoneNumber phoneNumber, final Email email,
+                    final Note note, final PostalAddress postalAddress) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -55,7 +56,7 @@ public class Contact implements Comparable<Contact> {
      * {@inheritDoc}
      */
     @Override
-    public int compareTo(Contact o) {
+    public int compareTo(final Contact o) {
         return this.name.compareTo(o.name);
     }
 
@@ -63,7 +64,7 @@ public class Contact implements Comparable<Contact> {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -99,27 +100,27 @@ public class Contact implements Comparable<Contact> {
         private Note note;
         private PostalAddress postalAddress;
 
-        public ContactBuilder setName(Name name) {
+        public ContactBuilder setName(final Name name) {
             this.name = name;
             return this;
         }
 
-        public ContactBuilder setPhoneNumber(PhoneNumber phoneNumber) {
+        public ContactBuilder setPhoneNumber(final PhoneNumber phoneNumber) {
             this.phoneNumber = phoneNumber;
             return this;
         }
 
-        public ContactBuilder setEmail(Email email) {
+        public ContactBuilder setEmail(final Email email) {
             this.email = email;
             return this;
         }
 
-        public ContactBuilder setNote(Note note) {
+        public ContactBuilder setNote(final Note note) {
             this.note = note;
             return this;
         }
 
-        public ContactBuilder setPostalAddress(PostalAddress postalAddress) {
+        public ContactBuilder setPostalAddress(final PostalAddress postalAddress) {
             this.postalAddress = postalAddress;
             return this;
         }

@@ -2,10 +2,7 @@ package com.nyu.edu.pqs.assignment1.addressbook.iomanager.impl;
 
 import com.google.gson.Gson;
 import com.nyu.edu.pqs.assignment1.addressbook.contact.Contact;
-import com.nyu.edu.pqs.assignment1.addressbook.contact.conatctproperty.*;
-import com.nyu.edu.pqs.assignment1.addressbook.helper.Helper;
 import com.nyu.edu.pqs.assignment1.addressbook.iomanager.IOManager;
-import com.nyu.edu.pqs.assignment1.addressbook.pojo.ContactPojo;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -14,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -40,24 +36,18 @@ class JsonFormatIOManager implements IOManager {
      * {@inheritDoc}
      */
     @Override
-    public boolean saveAddressBook(String filePath, List<Contact> contactList) {
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(filePath + "\\contactList.json"));
-            String json = gson.toJson(contactList);
-            out.write(json);
-            out.close();
-            return true;
-        } catch (IOException ie) {
-            return false;
-        }
+    public void saveAddressBook(final String filePath, final List<Contact> contactList) throws IOException {
+        BufferedWriter out = new BufferedWriter(new FileWriter(filePath + "\\contactList.json"));
+        String json = gson.toJson(contactList);
+        out.write(json);
+        out.close();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<Contact> readAddressBook(String filePath) {
-        try {
+    public List<Contact> readAddressBook(final String filePath) throws IOException {
             InputStream is = new FileInputStream(filePath + "\\contactList.json");
             BufferedReader buf = new BufferedReader(new InputStreamReader(is));
             String line = buf.readLine();
@@ -68,8 +58,5 @@ class JsonFormatIOManager implements IOManager {
             }
             List<Contact> contactList = gson.fromJson(sb.toString(), List.class);
             return contactList;
-        } catch (IOException ie) {
-            return null;
-        }
     }
 }

@@ -12,6 +12,10 @@ import com.nyu.edu.pqs.assignment1.addressbook.validation.ContactValidator;
  * This implementation is used to verify data send for a contact object of Version type version 1.
  */
 public class VersionOneDataValidation implements ContactValidator {
+    /**
+     * The length of each part of a name.
+     */
+    private static final int nameLength = 60;
 
     /**
      * This method checks if name and phone number entered is valid.
@@ -19,28 +23,28 @@ public class VersionOneDataValidation implements ContactValidator {
      * {@inheritDoc}
      */
     @Override
-    public boolean isValidContact(ContactPojo contactPojo) {
+    public boolean isValidContact(final ContactPojo contactPojo) {
         return isNameValid(contactPojo.getName()) && isPhoneNumberValid(contactPojo.getPhoneNumber());
     }
 
-    private boolean isPhoneNumberValid(PhoneNumberPojo phoneNumber) {
-        return phoneNumber == null || (( phoneNumber.getHomeNumber() == null ||
-                isValidPhoneNumberFormat(phoneNumber.getHomeNumber()))) &&
-                (( phoneNumber.getMobileNumber() == null ||
-                        isValidPhoneNumberFormat(phoneNumber.getMobileNumber()))) &&
-                (( phoneNumber.getWorkNumber() == null ||
-                        isValidPhoneNumberFormat(phoneNumber.getWorkNumber())));
+    private boolean isPhoneNumberValid(final PhoneNumberPojo phoneNumber) {
+        return phoneNumber == null || ((phoneNumber.getHomeNumber() == null
+                || isValidPhoneNumberFormat(phoneNumber.getHomeNumber()))) &&
+                ((phoneNumber.getMobileNumber() == null
+                        || isValidPhoneNumberFormat(phoneNumber.getMobileNumber()))) &&
+                ((phoneNumber.getWorkNumber() == null
+                        || isValidPhoneNumberFormat(phoneNumber.getWorkNumber())));
     }
 
-    private boolean isValidPhoneNumberFormat(PhoneNumberFormatPojo phoneNumberFormatPojo) {
-        return isInteger(phoneNumberFormatPojo.getCountryCode()) &&
-                isInteger(phoneNumberFormatPojo.getAreaCode()) &&
-                isInteger(phoneNumberFormatPojo.getFirstThreeDigit()) &&
-                isInteger(phoneNumberFormatPojo.getLastFourDigit());
+    private boolean isValidPhoneNumberFormat(final PhoneNumberFormatPojo phoneNumberFormatPojo) {
+        return isInteger(phoneNumberFormatPojo.getCountryCode())
+                && isInteger(phoneNumberFormatPojo.getAreaCode())
+                && isInteger(phoneNumberFormatPojo.getFirstThreeDigit())
+                && isInteger(phoneNumberFormatPojo.getLastFourDigit());
     }
 
-    private boolean isInteger(String number) {
-        if(number == null) return true;
+    private boolean isInteger(final String number) {
+        if (number == null) return true;
         try {
             Integer.parseInt(number);
             return true;
@@ -49,9 +53,9 @@ public class VersionOneDataValidation implements ContactValidator {
         }
     }
 
-    private boolean isNameValid(NamePojo name) {
-        return name == null || ((name.getFirstName() == null || name.getFirstName().length() < 60) &&
-                (name.getMiddleName() == null || name.getMiddleName().length() < 60) &&
-                (name.getLastName() == null || name.getLastName().length() < 60));
+    private boolean isNameValid(final NamePojo name) {
+        return name == null || ((name.getFirstName() == null || name.getFirstName().length() < nameLength)
+                && (name.getMiddleName() == null || name.getMiddleName().length() < nameLength)
+                && (name.getLastName() == null || name.getLastName().length() < nameLength));
     }
 }

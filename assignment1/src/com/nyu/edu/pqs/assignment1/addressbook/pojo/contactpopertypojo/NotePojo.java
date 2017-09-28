@@ -9,7 +9,7 @@ import com.nyu.edu.pqs.assignment1.addressbook.pojo.ContactPojo;
 public class NotePojo {
     private final String note;
 
-    private NotePojo(String note) {
+    private NotePojo(final String note) {
         this.note = note;
     }
 
@@ -31,7 +31,7 @@ public class NotePojo {
     public static class NotePojoBuilder {
         private String note;
 
-        public NotePojoBuilder setNote(String note) {
+        public NotePojoBuilder setNote(final String note) {
             this.note = note;
             return this;
         }
