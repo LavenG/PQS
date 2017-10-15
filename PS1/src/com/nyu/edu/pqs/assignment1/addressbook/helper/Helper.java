@@ -24,31 +24,57 @@ public final class Helper {
      * @return A contact object that can be used for model.
      */
     public static Contact convertContactPojoToContact(final ContactPojo contactPojo) {
-        EmailFormat workEmailFormat = convertEmailFormatPojoToEmailFormat(
-                contactPojo.getEmail().getWorkEmail());
-        EmailFormat personalEmailFormat = convertEmailFormatPojoToEmailFormat(
-                contactPojo.getEmail().getPersonalEmail());
-        Email email = new Email.EmailBuilder()
+        Email email = null;
+        if (contactPojo.getEmail() != null) {
+            EmailFormat workEmailFormat = null;
+            EmailFormat personalEmailFormat = null;
+            if (contactPojo.getEmail().getWorkEmail() != null) {
+                workEmailFormat = convertEmailFormatPojoToEmailFormat(
+                    contactPojo.getEmail().getWorkEmail());
+            }
+            if (contactPojo.getEmail().getPersonalEmail() != null) {
+                personalEmailFormat = convertEmailFormatPojoToEmailFormat(
+                    contactPojo.getEmail().getPersonalEmail());
+            }
+            email = new Email.EmailBuilder()
                 .setPersonalEmail(personalEmailFormat)
                 .setWorkEmail(workEmailFormat)
                 .build();
-        PhoneNumberFormat mobilePhoneNumberFormat = convertPhoneNumberFormatPojoToPhoneNumberFormat(
-                contactPojo.getPhoneNumber().getMobileNumber());
-        PhoneNumberFormat workPhoneNumberFormat = convertPhoneNumberFormatPojoToPhoneNumberFormat(
-                contactPojo.getPhoneNumber().getWorkNumber());
-        PhoneNumberFormat homePhoneNumberFormat = convertPhoneNumberFormatPojoToPhoneNumberFormat(
-                contactPojo.getPhoneNumber().getHomeNumber());
-        PhoneNumber phoneNumber = new PhoneNumber.PhoneNumberBuilder()
+        }
+        PhoneNumber phoneNumber = null;
+        if (contactPojo.getPhoneNumber() != null) {
+            PhoneNumberFormat homePhoneNumberFormat = null;
+            PhoneNumberFormat workPhoneNumberFormat = null;
+            PhoneNumberFormat mobilePhoneNumberFormat = null;
+            if (contactPojo.getPhoneNumber().getMobileNumber() != null) {
+                mobilePhoneNumberFormat = convertPhoneNumberFormatPojoToPhoneNumberFormat(
+                    contactPojo.getPhoneNumber().getMobileNumber());
+            }
+            if (contactPojo.getPhoneNumber().getWorkNumber() != null) {
+                 workPhoneNumberFormat = convertPhoneNumberFormatPojoToPhoneNumberFormat(
+                    contactPojo.getPhoneNumber().getWorkNumber());
+            }
+            if (contactPojo.getPhoneNumber().getHomeNumber() != null) {
+                homePhoneNumberFormat = convertPhoneNumberFormatPojoToPhoneNumberFormat(
+                    contactPojo.getPhoneNumber().getHomeNumber());
+            }
+            phoneNumber = new PhoneNumber.PhoneNumberBuilder()
                 .setHomeNumber(homePhoneNumberFormat)
                 .setMobileNumber(mobilePhoneNumberFormat)
                 .setWorkNumber(workPhoneNumberFormat)
                 .build();
-        Name name = new Name.NameBuilder()
+        }
+        Name name = null;
+        if (contactPojo.getName() != null) {
+            name = new Name.NameBuilder()
                 .setFirstName(contactPojo.getName().getFirstName())
                 .setMiddleName(contactPojo.getName().getMiddleName())
                 .setLastName(contactPojo.getName().getLastName())
                 .build();
-        PostalAddress postalAddress = new PostalAddress.PostalAddressBuilder()
+        }
+        PostalAddress postalAddress = null;
+        if (contactPojo.getPostalAddress() != null) {
+            postalAddress = new PostalAddress.PostalAddressBuilder()
                 .setAddressLine1(contactPojo.getPostalAddress().getAddressLine1())
                 .setAddressLine2(contactPojo.getPostalAddress().getAddressLine2())
                 .setCity(contactPojo.getPostalAddress().getCity())
@@ -56,14 +82,19 @@ public final class Helper {
                 .setCountry(contactPojo.getPostalAddress().getCountry())
                 .setZipCode(contactPojo.getPostalAddress().getZipCode())
                 .build();
-        Note note = new Note.NoteBuilder()
+        }
+        Note note = null;
+        if(contactPojo.getNote() != null) {
+            note = new Note.NoteBuilder()
                 .setNote(contactPojo.getNote().getNote())
                 .build();
+        }
         return new Contact.ContactBuilder()
                 .setName(name)
                 .setPhoneNumber(phoneNumber)
                 .setEmail(email)
                 .setPostalAddress(postalAddress)
+                .setNote(note)
                 .build();
     }
 
@@ -74,31 +105,57 @@ public final class Helper {
      * @return A contact object familiar to user.
      */
     public static ContactPojo convertContactToContactPojo(final Contact contact) {
-        EmailFormatPojo workEmailFormatPojo = convertEmailFormatToEmailFormatPojo(
-                contact.getEmail().getWorkEmail());
-        EmailFormatPojo personalEmailFormatPojo = convertEmailFormatToEmailFormatPojo(
-                contact.getEmail().getPersonalEmail());
-        EmailPojo emailPojo = new EmailPojo.EmailPojoBuilder()
+        EmailPojo emailPojo = null;
+        if (contact.getEmail() != null) {
+            EmailFormatPojo workEmailFormatPojo = null;
+            EmailFormatPojo personalEmailFormatPojo = null;
+            if (contact.getEmail().getWorkEmail() != null) {
+                workEmailFormatPojo = convertEmailFormatToEmailFormatPojo(
+                    contact.getEmail().getWorkEmail());
+            }
+            if (contact.getEmail().getPersonalEmail() != null) {
+                personalEmailFormatPojo = convertEmailFormatToEmailFormatPojo(
+                    contact.getEmail().getPersonalEmail());
+            }
+            emailPojo = new EmailPojo.EmailPojoBuilder()
                 .setPersonalEmail(personalEmailFormatPojo)
                 .setWorkEmail(workEmailFormatPojo)
                 .build();
-        PhoneNumberFormatPojo mobilePhoneNumberFormatPojo = convertPhoneNumberFormatToPhoneNumberFormatPojo(
-                contact.getPhoneNumber().getMobileNumber());
-        PhoneNumberFormatPojo workPhoneNumberFormatPojo = convertPhoneNumberFormatToPhoneNumberFormatPojo(
-                contact.getPhoneNumber().getWorkNumber());
-        PhoneNumberFormatPojo homePhoneNumberFormatPojo = convertPhoneNumberFormatToPhoneNumberFormatPojo(
-                contact.getPhoneNumber().getHomeNumber());
-        PhoneNumberPojo phoneNumberPojo = new PhoneNumberPojo.PhoneNumberPojoBuilder()
+        }
+        PhoneNumberPojo phoneNumberPojo = null;
+        if (contact.getPhoneNumber() != null) {
+            PhoneNumberFormatPojo mobilePhoneNumberFormatPojo = null;
+            PhoneNumberFormatPojo workPhoneNumberFormatPojo = null;
+            PhoneNumberFormatPojo homePhoneNumberFormatPojo = null;
+            if (contact.getPhoneNumber().getMobileNumber() != null) {
+                mobilePhoneNumberFormatPojo = convertPhoneNumberFormatToPhoneNumberFormatPojo(
+                    contact.getPhoneNumber().getMobileNumber());
+            }
+            if (contact.getPhoneNumber().getWorkNumber() != null) {
+                workPhoneNumberFormatPojo = convertPhoneNumberFormatToPhoneNumberFormatPojo(
+                    contact.getPhoneNumber().getWorkNumber());
+            }
+            if (contact.getPhoneNumber().getHomeNumber() != null) {
+                homePhoneNumberFormatPojo = convertPhoneNumberFormatToPhoneNumberFormatPojo(
+                    contact.getPhoneNumber().getHomeNumber());
+            }
+            phoneNumberPojo = new PhoneNumberPojo.PhoneNumberPojoBuilder()
                 .setHomeNumber(homePhoneNumberFormatPojo)
                 .setMobileNumber(mobilePhoneNumberFormatPojo)
                 .setWorkNumber(workPhoneNumberFormatPojo)
                 .build();
-        NamePojo namePojo = new NamePojo.NamePojoBuilder()
+        }
+        NamePojo namePojo = null;
+        if (contact.getName() != null) {
+            namePojo = new NamePojo.NamePojoBuilder()
                 .setFirstName(contact.getName().getFirstName())
                 .setMiddleName(contact.getName().getMiddleName())
                 .setLastName(contact.getName().getLastName())
                 .build();
-        PostalAddressPojo postalAddressPojo = new PostalAddressPojo.PostalAddressPojoBuilder()
+        }
+        PostalAddressPojo postalAddressPojo = null;
+        if (contact.getPostalAddress() != null) {
+            postalAddressPojo = new PostalAddressPojo.PostalAddressPojoBuilder()
                 .setAddressLine1(contact.getPostalAddress().getAddressLine1())
                 .setAddressLine2(contact.getPostalAddress().getAddressLine2())
                 .setCity(contact.getPostalAddress().getCity())
@@ -106,9 +163,13 @@ public final class Helper {
                 .setCountry(contact.getPostalAddress().getCountry())
                 .setZipCode(contact.getPostalAddress().getZipCode())
                 .build();
-        NotePojo notePojo = new NotePojo.NotePojoBuilder()
+        }
+        NotePojo notePojo = null;
+        if (contact.getNote() != null) {
+            notePojo = new NotePojo.NotePojoBuilder()
                 .setNote(contact.getNote().getNote())
                 .build();
+        }
         return new ContactPojo.ContactPojoBuilder()
                 .setName(namePojo)
                 .setPhoneNumber(phoneNumberPojo)
