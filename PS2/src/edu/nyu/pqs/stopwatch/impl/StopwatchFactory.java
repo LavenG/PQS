@@ -1,8 +1,11 @@
 package edu.nyu.pqs.stopwatch.impl;
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import edu.nyu.pqs.stopwatch.api.Stopwatch;
+import java.util.Set;
 
 /**
  * The StopwatchFactory is a thread-safe factory class for Stopwatch objects.
@@ -11,6 +14,9 @@ import edu.nyu.pqs.stopwatch.api.Stopwatch;
  *
  */
 public class StopwatchFactory {
+  private static final Object factoryLock = new Object();
+  private static final Set<String> idSet = new HashSet<>();
+  private static final List<Stopwatch> stopWatchList = new LinkedList<>();
 
   /**
    * Creates and returns a new Stopwatch object
@@ -20,8 +26,21 @@ public class StopwatchFactory {
    *     already taken.
    */
   public static Stopwatch getStopwatch(String id) {
-    // replace this return statement with correct code
-    return null;
+    synchronized (factoryLock) {
+      if (id == null) {
+        throw new IllegalArgumentException();
+      }
+      if (id.trim().equals("")) {
+        throw new IllegalArgumentException();
+      }
+      if (idSet.contains(id)) {
+        throw new IllegalArgumentException();
+      }
+      idSet.add(id);
+      Stopwatch stopwatch = new StopwatchImpl(id);
+      stopWatchList.add(stopwatch);
+      return stopwatch;
+    }
   }
 
   /**
@@ -30,6 +49,17 @@ public class StopwatchFactory {
    * list if no Stopwatches have been created.
    */
   public static List<Stopwatch> getStopwatches() {
-    return null;
+    synchronized (factoryLock) {
+      return stopWatchList;
+    }
+  }
+
+  /**
+   *
+   * {@inheritDoc}
+   */
+  @Override
+  public String toString() {
+    return "Stopwatch Factory";
   }
 }
