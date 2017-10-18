@@ -51,7 +51,7 @@ public class StopwatchFactory {
    */
   public static List<Stopwatch> getStopwatches() {
     synchronized (factoryLock) {
-      return new ArrayList<>(stopWatchList);
+      return new LinkedList<>(stopWatchList);
     }
   }
 

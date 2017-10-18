@@ -117,7 +117,7 @@ public class StopwatchImpl implements Stopwatch {
   @Override
   public List<Long> getLapTimes() {
     synchronized (stopwatchLock) {
-      return laps;
+      return new LinkedList<>(laps);
     }
   }
 
