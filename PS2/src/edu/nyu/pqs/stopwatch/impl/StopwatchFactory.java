@@ -1,5 +1,6 @@
 package edu.nyu.pqs.stopwatch.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,13 +29,13 @@ public class StopwatchFactory {
   public static Stopwatch getStopwatch(String id) {
     synchronized (factoryLock) {
       if (id == null) {
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("Null id not allowed.");
       }
       if (id.trim().equals("")) {
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("Empty string or string consisting only of spaces is not allowed as id.");
       }
       if (idSet.contains(id)) {
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("The id entered already exists.");
       }
       idSet.add(id);
       Stopwatch stopwatch = new StopwatchImpl(id);
@@ -50,7 +51,7 @@ public class StopwatchFactory {
    */
   public static List<Stopwatch> getStopwatches() {
     synchronized (factoryLock) {
-      return stopWatchList;
+      return new ArrayList<>(stopWatchList);
     }
   }
 
