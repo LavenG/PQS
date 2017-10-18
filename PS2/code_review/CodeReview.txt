@@ -1,2 +1,95 @@
 Please enter your code review in this file as plain text
 and make sure to include it when you commit your project.
+
+General:
+i.    No easy mechanism for version handling.
+ii.   All the services(operations) are in one class so if one want's to change how these are
+implemented then they will have to overwrite the class.
+iii.  Search doesn't work exactly as is in a common address book.
+
+(I) In AddressBook.java :
+i.    toString methods missing.
+ii.   Cannot see the entire addressBook in a certain order or searched records in a particular order
+which in most address books is alphabetical.
+iii.  No null checks. Hence adding null will create issues.
+iv.   Add and remove start by reading the whole address book again and hence will take a lot of
+time, O(n) precisely. This information hasn't been shared with the developer through documentation.
+v.    A private method has the structure for JavaDoc but it hasn't been properly documented. Either
+there should be no structure or proper documentation. (line 171-172).
+vii.  Entries are not final and hence mutable.
+viii. Line 118 the text is not in length range as specified by style guide.
+ix.   Continued lines should be +2 spaces from continued line in line 154-156.
+x.    In search if two or more enteries return same count for a search term then only one of them is
+preserved and the previous is over written.
+
+(II) In AddressEntry.java :
+i.    toString methods missing.
+ii.   JavaDoc is not properly maintained. The parameters and return values are not properly
+specified for all public methods (eg. line 85, 77, 89, 117-118, 101, 129, etc).
+iii.  Getters are not descriptive hence one isn't aware what is the default value.
+iv.   No null checks.
+v.    Entries are not final and hence mutable.
+vi.   No JavaDoc for entry builder so user is not aware of the arguments and details he can pass,
+ their default values and their usage.
+vii.  Line 57 should return primitive (int) as null is never returned.
+viii. The signature of address method in EntryBuilder is really bulky. Should use builder pattern
+more efficiently.
+
+(III) SearchableContactProperty.java :
+i.    Line 51 and line 30 java doc hasn't been properly maintained.
+ii.   Storing each search term and it's count in a map could be very memory intensive as a real user
+performs several searches.
+iv.   SearchTerms map is not final and hence mutable. Though there are no setters but mutable
+enteries could be changed by the developer and cause issues. Also, mutable enteries are not thread
+safe.
+v.    A address book mostly displays all matches in an order sorted by name, and if two contacts
+have same name then we see the contact by entry order. Though displaying by frequency of match is
+good it doesn't match a actual address book implementation as was instructed in the class.
+vi.   toString methods missing.
+v.    No null checks.
+
+(IV) In Email.java :
+i.    toString methods missing.
+ii.   No null checks.
+iii.  Entries are not final and hence mutable. Though there are no setters but mutable enteries
+could be changed by the developer and cause issues. Also, mutable enteries are not thread safe.
+iv.   What is considered as proper email format not specified in JavaDoc in Line 31.
+v.    Line 32 param not described in JavaDoc.
+
+(V) In Name.java :
+i.    toString methods missing.
+ii.   No null checks.
+iii.  Entries are not final and hence mutable.
+iv.   Line 10,11,35 Java doc is not properly maintained.
+v.    25-26 Common text, override method should inheritDoc if it is general purpose as is the case
+here.
+
+(VI) In Note.java :
+i.    toString methods missing.
+ii.   No null checks.
+iii.  Entries are not final and hence mutable.
+iv.   It should be specified in the constructor's JavaDoc that the entry is going to be validated.
+v.    Line 23-25 override method should inheritDoc if it is general purpose as is the case here.
+vi.   Line 14 Java doc is not properly maintained.
+
+(VII) In PhoneNumber.java :
+i.    Line 25 spelling of member in Java Doc is incorrect.
+ii.   toString methods missing.
+iii.  No null checks.
+iv.   Entries are not final and hence mutable.
+v.    Override method should inheritDoc if it is general purpose as is the case here.
+vi.   Line 15 Java doc is not properly maintained.
+
+(VIII) In Address.java :
+i.    No null checks.
+ii.   Entries are not final and hence mutable.
+iii.  toString method missing.
+iv.   public static fields can be used by other developers and hence will create problem. It should
+either be private or should carry a warning in JavaDoc.
+v.    public variables should be documented.
+vi.   Validations performed on different items in the Adress are not properly specified.
+vii.  Override method should inheritDoc if it is general purpose as is the case here.
+viii. Line 19 Java doc is not properly maintained.
+
+
+
