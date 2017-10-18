@@ -48,8 +48,31 @@ public class SlowThinker {
         stopwatch.stop();
         List<Long> times = stopwatch.getLapTimes();
         logger.info(times.toString());
+        stopwatch.reset();
+        stopwatch.start();
+        for (int i = 0; i < 12; i++) {
+          try {
+            Thread.sleep(3000);
+          } catch (InterruptedException ignored) { }
+          stopwatch.lap();
+        }
+        stopwatch.stop();
+        stopwatch.start();
+/*        for (int i = 0; i < 12; i++) {
+          try {
+            Thread.sleep(3000);
+          } catch (InterruptedException ignored) { }
+          stopwatch.lap();
+        }*/
+        try {
+          Thread.sleep(200);
+        } catch (InterruptedException ignored) { }
+        stopwatch.stop();
+        times = stopwatch.getLapTimes();
+        logger.info(times.toString());
       }
     };
+
     Thread thinkerThread = new Thread(runnable);
     thinkerThread.start();
   }
