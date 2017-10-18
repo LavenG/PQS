@@ -16,6 +16,13 @@ public class StopwatchImpl implements Stopwatch {
   private boolean running;
   private List<Long> laps;
 
+  /**
+   * This is a package private constuctor for Stopwatch.
+   * A stopwatch instance can only be instantiated by using the
+   * StopwatchFactory.
+   *
+   * @param id The id of the stopwatch instance.
+   */
   StopwatchImpl(String id) {
     this.id = id;
     running = false;
