@@ -5,7 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by naman on 10/17/2017.
+ * This is an implementation for {@link Stopwatch}.
+ * It supports the typical operations of a physical stopwatch: start, stop, restart,
+ * and the recording of laps (times intervals). Also, it can be asked for a list of
+ * all the lap times that have been recorded using that stopwatch. Since, a copy of
+ * the list returned hence the operation takes O(n) time.
+ * If the stopwatch is stopped and started then the time recorded at stoppage is cleared.
  */
 public class StopwatchImpl implements Stopwatch {
   private final Object stopwatchLock = new Object();
