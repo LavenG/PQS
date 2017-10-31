@@ -24,17 +24,11 @@ simultaneously.
 xi.   Line 95 we shouldn't return the list where we store data but a copy of the same or
 manipulating the list from the outside will break the stopwatch.
 xii.  Line 101 mutex lock is not needed as several threads should be able to get the toString of a
-thread safe object simultaneously.
+thread safe object simultaneously until one is reading from a list.
 
 (II) In StopwatchFactory.java :
-i.    toString methods missing.
-ii.   JavaDoc is not properly maintained. The parameters and return values are not properly
-specified for all public methods (eg. line 85, 77, 89, 117-118, 101, 129, etc).
-iii.  Getters are not descriptive hence one isn't aware what is the default value.
-iv.   No null checks.
-v.    Entries are not final and hence mutable.
-vi.   No JavaDoc for entry builder so user is not aware of the arguments and details he can pass,
- their default values and their usage.
-vii.  Line 57 should return primitive (int) as null is never returned.
-viii. The signature of address method in EntryBuilder is really bulky. Should use builder pattern
-more efficiently.
+i.   toString method missing in the class.
+ii.  Both mutex and stopwatchMap should be final.
+iii. Line 33, id composed of all spaces is an empty id and hence should be handled accordingly.
+iv.  If a thread changes the stopwatchMap while another is reading through all it's content then
+the map
