@@ -1,2 +1,40 @@
 Please enter your code review in this file as plain text
 and make sure to include it when you commit your project.
+
+General:
+i.    No easy mechanism for version handling.
+ii.   All the services(operations) are in one class so if one want's to change how these are
+implemented then they will have to overwrite the class.
+iii.  Search doesn't work exactly as is in a common address book.
+
+(I) In StopwatchImpl.java :
+i.    Line 42,47,58,70,81,92,99 proper java documentation missing. inheritDoc must be used.
+ii.   Line 19 lap times should be final.
+iii.  Line 21 enum should be final.
+iv.   Line 26 lock object should be final.
+v.    Line 106 to Line 116 as was decided since each stopwatch instance is unique equals and hash
+code are not needed.
+vii.  Line 33 constructor should be package private and not public so that it's not accessible
+outside the package without StopwatchFactory.
+viii. As was directed once the stopwatch is started after being stopped it should seem like it was
+never stooped. That is the stop time recorded should be removed from stopwatch. This doesn't happen.
+ix.   A private method that is one line and does nothing extra is not needed.
+x.    Line 94 a mutex lock is not needed and multiple threads should be able read the list
+simultaneously.
+xi.   Line 95 we shouldn't return the list where we store data but a copy of the same or
+manipulating the list from the outside will break the stopwatch.
+xii.  Line 101 mutex lock is not needed as several threads should be able to get the toString of a
+thread safe object simultaneously.
+
+(II) In StopwatchFactory.java :
+i.    toString methods missing.
+ii.   JavaDoc is not properly maintained. The parameters and return values are not properly
+specified for all public methods (eg. line 85, 77, 89, 117-118, 101, 129, etc).
+iii.  Getters are not descriptive hence one isn't aware what is the default value.
+iv.   No null checks.
+v.    Entries are not final and hence mutable.
+vi.   No JavaDoc for entry builder so user is not aware of the arguments and details he can pass,
+ their default values and their usage.
+vii.  Line 57 should return primitive (int) as null is never returned.
+viii. The signature of address method in EntryBuilder is really bulky. Should use builder pattern
+more efficiently.
