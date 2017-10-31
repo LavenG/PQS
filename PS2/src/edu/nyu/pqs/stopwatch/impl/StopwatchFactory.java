@@ -27,13 +27,13 @@ public class StopwatchFactory {
    *     already taken.
    */
   public static Stopwatch getStopwatch(String id) {
+    if (id == null) {
+      throw new IllegalArgumentException("Null id not allowed.");
+    }
+    if (id.trim().equals("")) {
+      throw new IllegalArgumentException("Empty string or string consisting only of spaces is not allowed as id.");
+    }
     synchronized (factoryLock) {
-      if (id == null) {
-        throw new IllegalArgumentException("Null id not allowed.");
-      }
-      if (id.trim().equals("")) {
-        throw new IllegalArgumentException("Empty string or string consisting only of spaces is not allowed as id.");
-      }
       if (idSet.contains(id)) {
         throw new IllegalArgumentException("The id entered already exists.");
       }
