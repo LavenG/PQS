@@ -134,28 +134,28 @@ public class AddressTest {
   @Test
   public void testEquals_AddressWithEmptyCity() {
     //Check empty city
-    Address emptyCity = new Address(city, "", state, zip, country);
+    Address emptyCity = new Address(street, "", state, zip, country);
     assertFalse(address.equals(emptyCity));
   }
 
   @Test
   public void testEquals_AddressWithEmptyState() {
     //Check empty state
-    Address emptyState = new Address(city, city, "", zip, country);
+    Address emptyState = new Address(street, city, "", zip, country);
     assertFalse(address.equals(emptyState));
   }
 
   @Test
   public void testEquals_AddressWithEmptyZip() {
     //Check empty zip
-    Address emptyZip = new Address(city, city, state, "", country);
+    Address emptyZip = new Address(street, city, state, "", country);
     assertFalse(address.equals(emptyZip));
   }
 
   @Test
   public void testEquals_AddressWithEmptyCountry() {
     //Check empty country
-    Address emptyCountry = new Address(city,city,state,zip,"");
+    Address emptyCountry = new Address(street,city,state,zip,"");
     assertFalse(address.equals(emptyCountry));
   }
 

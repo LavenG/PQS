@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit Test for {@link Contact}
@@ -17,27 +18,39 @@ public class ContactTest {
   private static final String presentInSearch = "Abc";
   private static final String firstName = "Abc";
   private static final String lastName = "Def";
+  private static final String street = "8th Street";
   private static final Address postalAddress
       = new Address("8th Street","New York","NY","10012","US");
+  private Address addressSpy;
   private static final Address emptyValuesPostalAddress
       = new Address("","","","","");
   private static final String phoneNumber = Address.removePhoneSymbols("+1 (234) 567-8910");
   private static final String emailAddress = "abc@efg.com";
   private static final String note = "This is a note.";
 
-  /*
-  Todo: for postalAddress check correct methods of address class are invoked
-   */
-
   @Before
   public void setup() {
+    createPostalAddressMock();
     contact = new Contact.Builder(firstName)
         .lastName(lastName)
-        .postalAddress(postalAddress)
+        .postalAddress(addressSpy)
         .phoneNumber(phoneNumber)
         .emailAddress(emailAddress)
         .note(note)
         .build();
+  }
+
+  private void createPostalAddressMock() {
+    addressSpy = Mockito.spy(postalAddress);
+    Mockito.when(addressSpy.searchAddressFields(street)).thenReturn(true);
+    Mockito.when(addressSpy.searchAddressFields("")).thenReturn(false);
+    Mockito.when(addressSpy.equals(postalAddress)).thenReturn(true);
+    Mockito.when(addressSpy.equals(emptyValuesPostalAddress)).thenReturn(false);
+    Mockito.when(addressSpy.toString()).thenReturn("8th Street\n"
+    + "New York\n"
+    + "NY\n"
+    + "10012\n"
+    + "US");
   }
 
   @Test
@@ -56,7 +69,13 @@ public class ContactTest {
   }
 
   @Test
-  public void testSearchContactFields_PostalAddressSearchIsInvoked() {
+  public void testSearchContactFields_PostalAddressSearchReturnsTrue() {
+    assertTrue(contact.searchContactFields(street));
+  }
+
+  @Test
+  public void testSearchContactFields_PostalAddressSearchReturnsFalse() {
+    assertFalse(contact.searchContactFields(""));
   }
 
   @Test
@@ -110,7 +129,7 @@ public class ContactTest {
         .note(note)
         .build();
     assertTrue(contact.equals(sameContact));
-    assertTrue(sameContact.equals(contact));
+    assertTrue(contact.equals(sameContact));
   }
 
   @Test
@@ -224,6 +243,14 @@ public class ContactTest {
   @Test
   public void testEquals_ConatctWithEmptyPostalAddress() {
     //Check empty postal address
+    Contact emptyPostalAddress = new Contact.Builder(firstName)
+        .lastName(lastName)
+        .postalAddress(emptyValuesPostalAddress)
+        .emailAddress(emailAddress)
+        .phoneNumber(phoneNumber)
+        .note(note)
+        .build();
+    assertFalse(contact.equals(emptyPostalAddress));
   }
 
   @Test
@@ -348,7 +375,7 @@ public class ContactTest {
     //Test base toString
     assertEquals(firstName + "\n"
         + lastName + "\n"
-        + postalAddress.toString() + "\n"
+        + addressSpy.toString() + "\n"
         + phoneNumber + "\n"
         + emailAddress + "\n"
         + note, contact.toString());
@@ -365,7 +392,7 @@ public class ContactTest {
         .build();
     assertEquals("\n"
         + lastName + "\n"
-        + postalAddress.toString() + "\n"
+        + addressSpy.toString() + "\n"
         + phoneNumber + "\n"
         + emailAddress + "\n"
         + note, emptyFirstName.toString());
@@ -382,7 +409,7 @@ public class ContactTest {
         .build();
     assertEquals(firstName + "\n"
         + "\n"
-        + postalAddress.toString() + "\n"
+        + addressSpy.toString() + "\n"
         + phoneNumber + "\n"
         + emailAddress + "\n"
         + note, emptyLastName.toString());
@@ -399,7 +426,7 @@ public class ContactTest {
         .build();
     assertEquals(firstName + "\n"
         + lastName + "\n"
-        + postalAddress.toString() + "\n"
+        + addressSpy.toString() + "\n"
         + "\n"
         + emailAddress + "\n"
         + note, emptyPhoneNumber.toString());
@@ -416,7 +443,7 @@ public class ContactTest {
         .build();
     assertEquals(firstName + "\n"
         + lastName + "\n"
-        + postalAddress.toString() + "\n"
+        + addressSpy.toString() + "\n"
         + phoneNumber + "\n"
         + "\n"
         + note, emptyEmailAddress.toString());
@@ -433,7 +460,7 @@ public class ContactTest {
         .build();
     assertEquals(firstName + "\n"
         + lastName + "\n"
-        + postalAddress.toString() + "\n"
+        + addressSpy.toString() + "\n"
         + phoneNumber + "\n"
         + emailAddress + "\n", emptyNote.toString());
   }
@@ -451,7 +478,7 @@ public class ContactTest {
         .build();
     assertEquals("\n"
         + lastName + "\n"
-        + postalAddress.toString() + "\n"
+        + addressSpy.toString() + "\n"
         + phoneNumber + "\n"
         + emailAddress + "\n"
         + note, nullFirstName.toString());
@@ -470,7 +497,7 @@ public class ContactTest {
         .build();
     assertEquals(firstName + "\n"
         + "\n"
-        + postalAddress.toString() + "\n"
+        + addressSpy.toString() + "\n"
         + phoneNumber + "\n"
         + emailAddress + "\n"
         + note, nullLastName.toString());
@@ -496,7 +523,7 @@ public class ContactTest {
         .build();
     assertEquals("\n"
         + lastName + "\n"
-        + postalAddress.toString() + "\n"
+        + addressSpy.toString() + "\n"
         + phoneNumber + "\n"
         + "\n"
         + note, nullEmailAddress.toString());
@@ -515,7 +542,7 @@ public class ContactTest {
         .build();
     assertEquals("\n"
         + lastName + "\n"
-        + postalAddress.toString() + "\n"
+        + addressSpy.toString() + "\n"
         + "\n"
         + emailAddress + "\n"
         + note, nullPhoneNumber.toString());
@@ -534,7 +561,7 @@ public class ContactTest {
         .build();
     assertEquals("\n"
         + lastName + "\n"
-        + postalAddress.toString() + "\n"
+        + addressSpy.toString() + "\n"
         + phoneNumber + "\n"
         + emailAddress + "\n"
         + "\n", nullNote.toString());
