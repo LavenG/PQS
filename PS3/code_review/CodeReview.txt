@@ -18,9 +18,10 @@ viii. As was directed once the stopwatch is started after being stopped it shoul
 never stooped. That is the stop time recorded should be removed from stopwatch. This doesn't happen.
 ix.   A private method that is one line and does nothing extra is not needed.
 x.    Line 94 a mutex lock is not needed and multiple threads should be able read the list
-simultaneously.
+simultaneously in the current return form.
 xi.   Line 95 we shouldn't return the list where we store data but a copy of the same or
-manipulating the list from the outside will break the stopwatch.
+manipulating the list from the outside will break the stopwatch. The mutex lock also is necessary in
+this case.
 xii.  Line 101 mutex lock is not needed as several threads should be able to get the toString of a
 thread safe object simultaneously until one is reading from a list.
 
