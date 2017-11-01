@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-/**
+/*
  * Unit Test for {@link Address}
  * Have individual test case for each scenario so that failure can be easily detected
  */
@@ -124,6 +124,7 @@ public class AddressTest {
     assertTrue(testAddress.equals(sameTestAddress));
   }
 
+
   @Test
   public void testEquals_AddressWithEmptyStreet() {
     //Check empty street
@@ -159,6 +160,8 @@ public class AddressTest {
     assertFalse(address.equals(emptyCountry));
   }
 
+  // Neither handled in code nor documented that nullPointerException is thrown or null street
+  // not allowed. This test case would hence fail as it throws NullPointerException.
   @Test
   public void testEquals_AddressWithNullStreet() {
     //Check null street
@@ -166,6 +169,8 @@ public class AddressTest {
     assertFalse(address.equals(emptyStreet));
   }
 
+  // Neither handled in code nor documented that nullPointerException is thrown or null city
+  // not allowed. This test case would hence fail as it throws NullPointerException.
   @Test
   public void testEquals_AddressWithNullCity() {
     //Check null city
@@ -173,6 +178,8 @@ public class AddressTest {
     assertFalse(address.equals(emptyCity));
   }
 
+  // Neither handled in code nor documented that nullPointerException is thrown or null state
+  // not allowed. This test case would hence fail as it throws NullPointerException.
   @Test
   public void testEquals_AddressWithNullState() {
     //Check null state
@@ -180,6 +187,8 @@ public class AddressTest {
     assertFalse(address.equals(emptyState));
   }
 
+  // Neither handled in code nor documented that nullPointerException is thrown or null zip
+  // not allowed. This test case would hence fail as it throws NullPointerException.
   @Test
   public void testEquals_AddressWithNullZip() {
     //Check null zip
@@ -187,6 +196,8 @@ public class AddressTest {
     assertFalse(address.equals(emptyZip));
   }
 
+  // Neither handled in code nor documented that nullPointerException is thrown or null country
+  // not allowed. This test case would hence fail as it throws NullPointerException.
   @Test
   public void testEquals_AddressWithNullCountry() {
     //Check null country

@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-/**
+/*
  * Unit Test for {@link Contact}
  * Have individual test case for each scenario so that failure can be easily detected
  */
@@ -292,6 +292,8 @@ public class ContactTest {
     assertFalse(contact.equals(emptyNote));
    }
 
+  // Neither handled in code nor documented that nullPointerException is thrown or null firstName
+  // not allowed. This test case would hence fail as it throws NullPointerException.
   @Test
   public void testEquals_ContactWithNullFirstName() {
     //Check null firstName
@@ -305,6 +307,8 @@ public class ContactTest {
     assertFalse(contact.equals(nullFirstName));
   }
 
+  // Neither handled in code nor documented that nullPointerException is thrown or null lastName
+  // not allowed. This test case would hence fail as it throws NullPointerException.
   @Test
   public void testEquals_ContactWithNullLastName() {
     //Check null lastName
@@ -323,6 +327,8 @@ public class ContactTest {
     //Check empty postal address
   }
 
+  // Neither handled in code nor documented that nullPointerException is thrown or null email
+  // not allowed. This test case would hence fail as it throws NullPointerException.
   @Test
   public void testEquals_ConatctWithNullEmailAddress() {
     //Check null email address
@@ -336,6 +342,8 @@ public class ContactTest {
     assertFalse(contact.equals(nullEmailAddress));
   }
 
+  // Neither handled in code nor documented that nullPointerException is thrown or null phone no.
+  // not allowed. This test case would hence fail as it throws NullPointerException.
   @Test
   public void testEquals_ContactWithNullPhoneNumber() {
     //Check null phone number
@@ -349,6 +357,8 @@ public class ContactTest {
     assertFalse(contact.equals(nullPhoneNumber));
   }
 
+  // Neither handled in code nor documented that nullPointerException is thrown or null note
+  // not allowed. This test case would hence fail as it throws NullPointerException.
   @Test
   public void testEquals_ContactWithNullNote() {
     //Check null note

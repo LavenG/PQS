@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import java.lang.reflect.Field;
 
-/**
+/*
  * Unit Test for {@link AddressBook}
  * Have individual test case for each scenario so that failure can be easily detected
  * Since we are not allowed to change code and the class is not very test friendly hence I have
@@ -35,9 +35,6 @@ public class AddressBookTest {
   private static final String emailAddress = "abc@efg.com";
   private static final String note = "This is a note.";
 
-  /**
-   *
-   */
   @Before
   public void setup() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
     addressBook = new AddressBook();
@@ -350,6 +347,8 @@ public class AddressBookTest {
     addressBook.readAddressBookFromFile("ContactFile.txt");
   }
 
+  //Sneding null filename should through a exception but since it hasn't been documented so
+  // I don't know what to catch. Hence on trying what's documented I get a fail.
   @Test (expected = IOException.class)
   public void testReadAddressBookFromFile_NullFile() throws IOException {
     addressBook.readAddressBookFromFile(null);
