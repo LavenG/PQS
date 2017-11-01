@@ -25,9 +25,9 @@ xii.  Line 101 mutex lock is not needed as several threads should be able to get
 thread safe object simultaneously until one is reading from a list.
 
 (II) In StopwatchFactory.java :
-i.   The contains check should be inside the mutex lock as two threads containing same id may pass
-     the contains check and then reach the mutex lock. Both of them will then add stopwatches with same
-     id to the map. At line 36.
+i.   At line 36, the contains check should be inside the mutex lock as two threads containing same
+id may pass the contains check and then reach the mutex lock. Both of them will then add stopwatches
+with same id to the map. This makes the expected functionality incorrect.
 ii.  Both mutex and stopwatchMap should be final.
 iii. Line 33, id composed of all spaces is an empty id and hence should be handled accordingly.
 iv.  toString method missing in the class.

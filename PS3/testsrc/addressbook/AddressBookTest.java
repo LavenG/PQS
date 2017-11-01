@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -231,7 +230,7 @@ public class AddressBookTest {
   public void testWriteAddressBookToFile() throws IOException {
     contactList.add(contact);
     contactList.add(contact);
-    String fileName = "testsrc/mockFileName.txt";
+    String fileName = "testsrc/MockFileNameNew.txt";
     addressBook.writeAddressBookToFile(fileName);
     String writeString = "#\n"
         + "Abc\n"
@@ -259,17 +258,6 @@ public class AddressBookTest {
     deleteFile(fileName);
   }
 
-  private void deleteFile(String fileName) {
-    if (fileName == null) {
-      return;
-    }
-    File file = new File(fileName);
-    try {
-      Files.deleteIfExists(file.toPath());
-    } catch (IOException e) {
-    }
-  }
-
   //As it is documented that IOException is received hence I test if null throws an
   // IOException. This should have been better handled or documented.
   @Test (expected = IOException.class)
@@ -281,7 +269,7 @@ public class AddressBookTest {
 
   @Test
   public void testWriteAddressBookToFile_FileWithExistingData() throws IOException {
-    String fileName = "testsrc/mockFileName.txt";
+    String fileName = "testsrc/MockFileNameExisting.txt";
     contactList.add(contact);
     contactList.add(contact);
     addressBook.writeAddressBookToFile(fileName);
@@ -458,5 +446,13 @@ public class AddressBookTest {
     } catch(IOException e) {
       return "";
     }
+  }
+
+  private void deleteFile(String fileName) {
+    if (fileName == null) {
+      return;
+    }
+    File file = new File(fileName);
+    file.delete();
   }
 }
