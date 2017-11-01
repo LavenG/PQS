@@ -7,5 +7,12 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/mockito-all-1.10.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/naman/Desktop/Course Work/Third Semester/PQS/Homework/Homework 1/pqs_173/PS3/lib/easymock-3.5/easymock-3.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/naman/Desktop/Course Work/Third Semester/PQS/Homework/Homework 1/pqs_173/PS3/lib/easymock-3.5/easymock-3.5-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/naman/Desktop/Course Work/Third Semester/PQS/Homework/Homework 1/pqs_173/PS3/lib/easymock-3.5/easymock-3.5-samples.jar"/>
+	<classpathentry kind="lib" path="C:/Users/naman/Desktop/Course Work/Third Semester/PQS/Homework/Homework 1/pqs_173/PS3/lib/easymock-3.5/easymock-3.5-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/naman/Desktop/Course Work/Third Semester/PQS/Homework/Homework 1/pqs_173/PS3/lib/easymock-3.5/easymock-3.5-tests.jar"/>
+	<classpathentry kind="lib" path="C:/Users/naman/Desktop/Course Work/Third Semester/PQS/Homework/Homework 1/pqs_173/PS3/lib/easymock-3.5/original-easymock-3.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/naman/Desktop/Course Work/Third Semester/PQS/Homework/Homework 1/pqs_173/PS3/lib/easymock-3.5/original-easymock-3.5-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
