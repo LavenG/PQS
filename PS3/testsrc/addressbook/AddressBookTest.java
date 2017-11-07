@@ -1,6 +1,7 @@
 package addressbook;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
@@ -18,12 +19,16 @@ import java.lang.reflect.Field;
  * Have individual test case for each scenario so that failure can be easily detected
  * Since we are not allowed to change code and the class is not very test friendly hence I have
  * used reflection to get access to private contactList.
+ * I have used the reflection for one test case verification but have used the search method from
+ * public API for all other testing.
  */
 public class AddressBookTest {
   private AddressBook addressBook;
+
+  //Two contacts that are nearly the same but have different postal address
   private Contact contact;
   private Contact contact2;
-  private Field contactListField;
+
   private List<Contact> contactList;
   private static final String firstName = "Abc";
   private static final String lastName = "Def";
@@ -53,7 +58,7 @@ public class AddressBookTest {
         .note(note)
         .build();
     Class addressBookClass = AddressBook.class;
-    contactListField = addressBookClass.getDeclaredField("contactList");
+    Field contactListField = addressBookClass.getDeclaredField("contactList");
     contactListField.setAccessible(true);
     contactList = (List<Contact>) contactListField.get(addressBook);
   }
@@ -61,22 +66,25 @@ public class AddressBookTest {
   @Test
   public void testAdd() {
     addressBook.add(contact);
-    assertEquals(1,contactList.size());
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(1, searchResult.size());
   }
 
   @Test
   public void testAdd_CheckCorrectContactAdded() {
     addressBook.add(contact);
-    assertTrue(compareContacts(contact, contactList.get(0)));
+    List<Contact> searchResult = addressBook.search(contact.lastName);
+    assertTrue(compareContacts(contact,searchResult.get(0)));
   }
 
   @Test
   public void testAdd_TestMultipleContactsAreAddedAndAreSameAsTheArguments() {
     addressBook.add(contact);
     addressBook.add(contact2);
-    assertEquals(2,contactList.size());
-    assertTrue(compareContacts(contact, contactList.get(0)));
-    assertTrue(compareContacts(contact2, contactList.get(1)));
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    List<Contact> searchResultAnother = addressBook.search(contact2.firstName);
+    assertTrue(compareContacts(contact, searchResult.get(0)));
+    assertTrue(compareContacts(contact2, searchResultAnother.get(1)));
   }
 
   //Null contact is added which shouldn't be the case. Hence this test fails.
@@ -90,70 +98,80 @@ public class AddressBookTest {
   public void testAdd_AddSameContact() {
     addressBook.add(contact);
     addressBook.add(contact);
-    assertEquals(2,contactList.size());
-    assertTrue(compareContacts(contact, contactList.get(0)));
-    assertTrue(compareContacts(contact, contactList.get(1)));
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(2,searchResult.size());
+    assertTrue(compareContacts(contact, searchResult.get(0)));
+    assertTrue(compareContacts(contact, searchResult.get(1)));
   }
 
   @Test
   public void testRemove() throws Exception {
-    contactList.add(contact);
+    addressBook.add(contact);
     addressBook.remove(contact);
-    assertEquals(0, contactList.size());
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(0, searchResult.size());
   }
 
   @Test
   public void testRemove_RemoveAskedContactWhenMultipleContactsInList() {
-    contactList.add(contact);
-    contactList.add(contact2);
+    addressBook.add(contact);
+    addressBook.add(contact2);
     addressBook.remove(contact2);
-    assertEquals(1,contactList.size());
-    assertTrue(compareContacts(contact, contactList.get(0)));
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(1,searchResult.size());
+    assertTrue(compareContacts(contact, searchResult.get(0)));
+    assertFalse(compareContacts(contact2, searchResult.get(0)));
   }
 
   @Test
   public void testRemove_RemoveOneOfManySimilarContact() {
-    contactList.add(contact);
-    contactList.add(contact);
+    addressBook.add(contact);
+    addressBook.add(contact);
     addressBook.remove(contact);
-    assertEquals(1,contactList.size());
-    assertTrue(compareContacts(contact, contactList.get(0)));
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(1,searchResult.size());
+    assertTrue(compareContacts(contact, searchResult.get(0)));
   }
 
   @Test
   public void testRemove_RemoveContactThatDoesntExist() {
-    contactList.add(contact);
+    addressBook.add(contact);
     addressBook.remove(contact2);
-    assertEquals(1,contactList.size());
-    assertTrue(compareContacts(contact, contactList.get(0)));
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(1,searchResult.size());
+    assertTrue(compareContacts(contact, searchResult.get(0)));
   }
 
   @Test
   public void testRemove_RemoveNull() {
-    contactList.add(contact);
+    addressBook.add(contact);
     addressBook.remove(null);
-    assertEquals(1,contactList.size());
-    assertTrue(compareContacts(contact, contactList.get(0)));
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(1,searchResult.size());
+    assertTrue(compareContacts(contact, searchResult.get(0)));
   }
 
   @Test
   public void testRemove_RemoveContactTwiceWhileListOnlyHasLessThanTwo() {
-    contactList.add(contact);
+    addressBook.add(contact);
     addressBook.remove(contact);
-    assertEquals(0,contactList.size());
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(0,searchResult.size());
     addressBook.remove(contact);
-    assertEquals(0, contactList.size());
+    assertEquals(0, searchResult.size());
   }
 
   @Test
   public void testRemove_RemoveContactTwiceWhileListHasMoreThanTwo() {
-    contactList.add(contact);
-    contactList.add(contact);
-    contactList.add(contact);
+    addressBook.add(contact);
+    addressBook.add(contact);
+    addressBook.add(contact);
     addressBook.remove(contact);
-    assertEquals(2,contactList.size());
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(2,searchResult.size());
     addressBook.remove(contact);
-    assertEquals(1, contactList.size());
+    List<Contact> searchResultAnother = addressBook.search(contact.firstName);
+    assertEquals(1, searchResultAnother.size());
   }
 
   @Test
@@ -165,9 +183,9 @@ public class AddressBookTest {
         .emailAddress("")
         .note("")
         .build();
-    contactList.add(contact);
-    contactList.add(contact2);
-    contactList.add(contact3);
+    addressBook.add(contact);
+    addressBook.add(contact2);
+    addressBook.add(contact3);
     List<Contact> searchResult = addressBook.search(firstName);
     assertEquals(3, searchResult.size());
   }
@@ -181,9 +199,9 @@ public class AddressBookTest {
         .emailAddress("")
         .note("")
         .build();
-    contactList.add(contact);
-    contactList.add(contact2);
-    contactList.add(contact3);
+    addressBook.add(contact);
+    addressBook.add(contact2);
+    addressBook.add(contact3);
     List<Contact> searchResult = addressBook.search("OnlyOne");
     assertEquals(1, searchResult.size());
     assertTrue(compareContacts(contact3, searchResult.get(0)));
@@ -198,9 +216,9 @@ public class AddressBookTest {
         .emailAddress("")
         .note("")
         .build();
-    contactList.add(contact);
-    contactList.add(contact2);
-    contactList.add(contact3);
+    addressBook.add(contact);
+    addressBook.add(contact2);
+    addressBook.add(contact3);
     List<Contact> searchResult = addressBook.search("Not existing");
     assertEquals(0, searchResult.size());
   }
@@ -216,17 +234,17 @@ public class AddressBookTest {
         .emailAddress("")
         .note("")
         .build();
-    contactList.add(contact);
-    contactList.add(contact2);
-    contactList.add(contact3);
+    addressBook.add(contact);
+    addressBook.add(contact2);
+    addressBook.add(contact3);
     List<Contact> searchResult = addressBook.search(null);
     assertEquals(0, searchResult.size());
   }
 
   @Test
   public void testWriteAddressBookToFile() throws IOException {
-    contactList.add(contact);
-    contactList.add(contact);
+    addressBook.add(contact);
+    addressBook.add(contact);
     String fileName = "testsrc/MockFileNameNew.txt";
     addressBook.writeAddressBookToFile(fileName);
     String writeString = "#\n"
@@ -259,19 +277,19 @@ public class AddressBookTest {
   // IOException. This should have been better handled or documented.
   @Test (expected = IOException.class)
   public void testWriteAddressBookToFile_NullFile() throws IOException {
-    contactList.add(contact);
-    contactList.add(contact);
+    addressBook.add(contact);
+    addressBook.add(contact);
     addressBook.writeAddressBookToFile(null);
   }
 
   @Test
   public void testWriteAddressBookToFile_FileWithExistingData() throws IOException {
     String fileName = "testsrc/MockFileNameExisting.txt";
-    contactList.add(contact);
-    contactList.add(contact);
+    addressBook.add(contact);
+    addressBook.add(contact);
     addressBook.writeAddressBookToFile(fileName);
-    contactList.add(contact);
-    contactList.add(contact);
+    addressBook.add(contact);
+    addressBook.add(contact);
     addressBook.writeAddressBookToFile(fileName);
     String writeString = "#\n"
         + "Abc\n"
@@ -324,22 +342,25 @@ public class AddressBookTest {
   @Test
   public void testReadAddressBookFromFile() throws IOException {
     addressBook.readAddressBookFromFile("testsrc/ContactFile.txt");
-    assertEquals(1,contactList.size());
-    assertTrue(compareContacts(contact, contactList.get(0)));
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(1,searchResult.size());
+    assertTrue(compareContacts(contact, searchResult.get(0)));
   }
 
   @Test
   public void testReadAddressBookFromFile_IllegalContactFile() throws IOException {
     addressBook.readAddressBookFromFile("testsrc/IllegalContactFile.txt");
-    assertEquals(0,contactList.size());
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(0,searchResult.size());
   }
 
   @Test
   public void testReadAddressBookFromFile_MultipleContactFile() throws IOException {
     addressBook.readAddressBookFromFile("testsrc/MultipleContactFile.txt");
-    assertEquals(2,contactList.size());
-    assertTrue(compareContacts(contact, contactList.get(0)));
-    assertTrue(compareContacts(contact, contactList.get(1)));
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(2,searchResult.size());
+    assertTrue(compareContacts(contact, searchResult.get(0)));
+    assertTrue(compareContacts(contact, searchResult.get(1)));
   }
 
   @Test (expected = IOException.class)
@@ -363,17 +384,22 @@ public class AddressBookTest {
         .emailAddress("")
         .note("")
         .build();
-    contactList.add(contact);
-    contactList.add(contact2);
-    contactList.add(contact3);
+    addressBook.add(contact);
+    addressBook.add(contact2);
+    addressBook.add(contact3);
+    //All three contacts have same first name
+    List<Contact> searchResultPrev = addressBook.search(contact.firstName);
+    assertEquals(3, searchResultPrev.size());
     addressBook.clear();
-    assertEquals(0,contactList.size());
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(0,searchResult.size());
   }
 
   @Test
   public void testClear_EmptyContactList() {
     addressBook.clear();
-    assertEquals(0,contactList.size());
+    List<Contact> searchResult = addressBook.search(contact.firstName);
+    assertEquals(0,searchResult.size());
   }
 
   private boolean compareContacts(Contact contact1, Contact contact2) {
@@ -435,7 +461,7 @@ public class AddressBookTest {
           Contact c = new Contact.Builder(firstName).lastName(lastName)
               .postalAddress(a).phoneNumber(phoneNumber)
               .emailAddress(emailAddress).note(note).build();
-          contactList.add(c);
+          addressBook.add(c);
           sb.append(contact.toString());
         }
         firstContact = false;
