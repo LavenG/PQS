@@ -1,5 +1,6 @@
 package edu.cs.nyu.pqs.assign5.model;
 
+import edu.cs.nyu.pqs.assign5.ModelColor;
 import edu.cs.nyu.pqs.assign5.exception.IllegalOperationException;
 import edu.cs.nyu.pqs.assign5.view.CanvasListener;
 import java.awt.Color;
@@ -12,11 +13,13 @@ import java.util.List;
 /**
  * This is a model for Canvas paint app. All the actions take place here based on the changes at
  * UI. This model also invokes the necessary function calls based on changes in the view.
+ * It is also the first place where all the view change and default information is stored before
+ * being broadcast.
  */
 public class CanvasModel {
   private final List<CanvasListener> listeners;
   private final Dimension dimension;
-  private Color colorOfBrush;
+  private ModelColor colorOfBrush;
   private int widthOfBrush;
   private Point previousPointOnCanvas;
 
@@ -26,7 +29,7 @@ public class CanvasModel {
    */
   CanvasModel(Dimension dimension) {
     listeners = new LinkedList<>();
-    setBrushColor(Color.BLACK);
+    setBrushColor(ModelColor.BLACK);
     widthOfBrush = 3;
     this.dimension = dimension;
   }
@@ -55,7 +58,8 @@ public class CanvasModel {
    * @return a copy of the color of brush in use.
    */
   public Color getBrushColor() {
-    return new Color(colorOfBrush.getRed(), colorOfBrush.getGreen(), colorOfBrush.getBlue());
+    return new Color(colorOfBrush.getColor().getRed(), colorOfBrush.getColor().getGreen(),
+        colorOfBrush.getColor().getBlue());
   }
 
   /**
@@ -73,7 +77,7 @@ public class CanvasModel {
    *
    * @param color The new color the brush takes.
    */
-  public void setColor(Color color) {
+  public void setColor(ModelColor color) {
     setBrushColor(color);
     fireChangeColorInUse();
   }
@@ -83,7 +87,7 @@ public class CanvasModel {
    * It resets the brush color to black and informs all the listeners about the same.
    */
   public void clearCanvas() {
-    setBrushColor(Color.BLACK);
+    setBrushColor(ModelColor.BLACK);
     fireClearCanvas();
   }
 
@@ -136,8 +140,9 @@ public class CanvasModel {
    * @param y The y coordinate where mouse is dragging.
    * @throws IllegalArgumentException If the point is not within the dimension bound or any of
    * it's  coordinates is less than 0.
-   * @throws IllegalOperationException If no previous point has been defined yet then the app has
-   * been broken and should be restarted.
+   * @throws IllegalOperationException If there are no previous moved then it means the
+   * app has recorded something wrong and hence may have some major issue. App needs to be
+   * restarted in such cases.
    */
   public void mouseDragEventHandlerAtModel(int x, int y) throws IllegalOperationException {
     if (x < 0 || y < 0 || x > dimension.getWidth() || y > dimension.getHeight()) {
@@ -253,7 +258,7 @@ public class CanvasModel {
     }
   }
 
-  private void setBrushColor(Color brushColor) {
+  private void setBrushColor(ModelColor brushColor) {
     this.colorOfBrush = brushColor;
   }
 }

@@ -1,12 +1,11 @@
 package edu.cs.nyu.pqs.assign5.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import edu.cs.nyu.pqs.assign5.ModelColor;
 import edu.cs.nyu.pqs.assign5.exception.IllegalOperationException;
 import edu.cs.nyu.pqs.assign5.view.CanvasListener;
 import java.awt.Color;
@@ -22,13 +21,13 @@ public class CanvasModelTest {
   private CanvasModel model;
   private CanvasListener listener;
   private Dimension dimension;
-  private Color color;
+  private ModelColor color;
   private int widthOfBrush;
 
   @Before
   public void setUp() {
     dimension = new Dimension(6,6);
-    color = Color.BLACK;
+    color = ModelColor.BLACK;
     widthOfBrush = 3;
     model = new CanvasModel(dimension);
     listener = mock(CanvasListener.class);
@@ -60,17 +59,17 @@ public class CanvasModelTest {
   public void setColorTest() throws Exception {
     model.registerListener(listener);
     model.setColor(color);
-    verify(listener, times(1)).changeBrushColorInUse(color);
-    assertEquals(color, model.getBrushColor());
+    verify(listener, times(1)).changeBrushColorInUse(color.getColor());
+    assertEquals(color.getColor(), model.getBrushColor());
   }
 
   @Test
   public void clearCanvasTest() throws Exception {
     model.registerListener(listener);
-    model.setColor(Color.CYAN);
+    model.setColor(ModelColor.RED);
     model.clearCanvas();
     verify(listener, times(1)).clearCanvasAndResetBrushColor();
-    assertEquals(color, model.getBrushColor());
+    assertEquals(color.getColor(), model.getBrushColor());
   }
 
   @Test
@@ -226,5 +225,4 @@ public class CanvasModelTest {
   public void toStringTest() throws Exception {
     assertEquals("Canvas Model", model.toString());
   }
-
 }

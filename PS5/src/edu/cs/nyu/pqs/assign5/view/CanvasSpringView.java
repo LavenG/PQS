@@ -1,5 +1,6 @@
 package edu.cs.nyu.pqs.assign5.view;
 
+import edu.cs.nyu.pqs.assign5.ModelColor;
 import edu.cs.nyu.pqs.assign5.exception.IllegalOperationException;
 import edu.cs.nyu.pqs.assign5.model.CanvasModel;
 import java.awt.BorderLayout;
@@ -153,7 +154,7 @@ public class CanvasSpringView implements CanvasListener {
     eraseButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        model.setColor(Color.WHITE);
+        model.setColor(ModelColor.WHITE);
       }
     });
     return eraseButton;
@@ -214,7 +215,7 @@ public class CanvasSpringView implements CanvasListener {
     colorButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        model.setColor(color);
+        model.setColor(ModelColor.getModelColor(color));
       }
     });
     return colorButton;
